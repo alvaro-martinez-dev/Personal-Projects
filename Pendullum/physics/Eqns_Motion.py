@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 from scipy.integrate import solve_ivp
 
-class eqnsmotion:
+class Eqnsmotion:
 
     def __init__(self,H,M,r,m,l,g=9.81):
         # H: Height at which the pendulum is attached in the z-axis (wrt to the surface, ie z=0)

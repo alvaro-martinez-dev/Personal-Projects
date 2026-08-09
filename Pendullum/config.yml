@@ -10,4 +10,5 @@ simulation:
   theta0: 0.3
   dtheta0: 0.0
   tfinal: 20
-  npoints: 1000
+  n_frames: 800
+  fps: 45
