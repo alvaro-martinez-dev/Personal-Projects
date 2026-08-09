@@ -1,0 +1,13 @@
+pendulum:
+  H: 2.0
+  M: 3.0
+  r: 0.12
+  m: 0.5
+  l: 1.8
+  g: 9.81
+
+simulation:
+  theta0: 0.3
+  dtheta0: 0.0
+  tfinal: 20
+  npoints: 1000
