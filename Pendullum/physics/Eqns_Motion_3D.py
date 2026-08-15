@@ -50,7 +50,7 @@ class Eqnsmotion:
     def energy(self,theta,dtheta,phi,dphi):
         # Kinetic energy and potential energy
 
-        kin_en = 0.5*self.I*(dtheta**2 + dphi**2)
+        kin_en = 0.5*self.I*(dtheta**2 + (np.sin(theta))**2*dphi**2)
 
         _, _, z_cm = self.position_cm(theta,phi)
         pot_en = (self.m + self.M)*self.g*z_cm
@@ -62,20 +62,27 @@ class Eqnsmotion:
         return kin_en, pot_en, total_en, lagrangian
 
 
-    def theta_angular_accel(self,theta):
+    def angular_accel(self,theta,dtheta,dphi):
 
         if self.I <= 0:
             raise ValueError("Moment of inertia is zero or negative.")
         else:
-            return (-(self.m + self.M)*self.A*self.g*np.sin(theta)) / self.I
+
+            ddtheta = np.sin(theta)*np.cos(theta)*dphi**2 + (-(self.m + self.M)*self.A*self.g*np.sin(theta)) / self.I
+
+            if np.sin(theta) < 1e-8:
+                ddphi = 0.0
+            else: 
+                ddphi = -(2*dtheta*dphi)/np.tan(theta)
+
+            return ddtheta, ddphi
             
         
     def equations_of_motion(self, t, y):
 
         theta, dtheta, phi, dphi = y
 
-        ddtheta = self.theta_angular_accel(theta)
-        ddphi = 0.0
+        ddtheta, ddphi = self.angular_accel(theta,dtheta,dphi)
 
         return [dtheta, ddtheta, dphi, ddphi]
 

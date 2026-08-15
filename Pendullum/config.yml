@@ -3,14 +3,14 @@ pendulum:
   M: 3.0
   r: 0.12
   m: 0.5
-  l: 1.8
+  l: 2.5
   g: 9.81
 
 simulation:
   theta0: 0.3
   dtheta0: 0.0
   phi0: 0.0
-  dphi0: 0.5
+  dphi0: 1.0
   tfinal: 20
   n_frames: 800
   fps: 40
