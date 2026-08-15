@@ -9,6 +9,8 @@ pendulum:
 simulation:
   theta0: 0.3
   dtheta0: 0.0
+  phi0: 0.0
+  dphi0: 0.5
   tfinal: 20
   n_frames: 800
-  fps: 45
+  fps: 40

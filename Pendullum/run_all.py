@@ -5,8 +5,8 @@ import numpy as np
 import yaml
 from tqdm import tqdm
 
-from physics.Eqns_Motion import Eqnsmotion
-from plotting.Plotter import PlotMotion
+from physics.Eqns_Motion_3D import Eqnsmotion
+from plotting.Plotter_3D import PlotMotion
 
 
 def load_config(path):
@@ -41,6 +41,8 @@ def run(config_path="config.yml", output_dir="outputs", show=False):
     sol = pend.solver(
         theta0=sim_cfg["theta0"],
         dtheta0=sim_cfg["dtheta0"],
+        phi0=sim_cfg["phi0"],
+        dphi0=sim_cfg["dphi0"],
         t_span=(0, sim_cfg["tfinal"]),
         t_eval=t_eval,
     )
