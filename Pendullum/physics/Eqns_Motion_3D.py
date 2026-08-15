@@ -57,9 +57,9 @@ class Eqnsmotion:
 
         total_en = kin_en + pot_en
 
-        lagrangian = kin_en - pot_en
+        #lagrangian = kin_en - pot_en
 
-        return kin_en, pot_en, total_en, lagrangian
+        return kin_en, pot_en, total_en #, lagrangian
 
 
     def angular_accel(self,theta,dtheta,dphi):

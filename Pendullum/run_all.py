@@ -8,6 +8,9 @@ from tqdm import tqdm
 from physics.Eqns_Motion_3D import Eqnsmotion
 from plotting.Plotter_3D import PlotMotion
 
+from physics.Eqns_Motion_Drag3D import EqnsmotionDrag
+from plotting.Plotter_Drag3D import PlotMotionDrag
+
 
 def load_config(path):
     with open(path, "r") as f:

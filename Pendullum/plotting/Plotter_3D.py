@@ -33,8 +33,7 @@ class PlotMotion:
         (
             self.kin_en,
             self.pot_en,
-            self.total_en,
-            self.lagrangian
+            self.total_en
         ) = self.eqns.energy(
             self.theta,
             self.dtheta,

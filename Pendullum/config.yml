@@ -5,6 +5,8 @@ pendulum:
   m: 0.5
   l: 2.5
   g: 9.81
+  k_drag: 0.3
+
 
 simulation:
   theta0: 0.3
@@ -14,3 +16,4 @@ simulation:
   tfinal: 20
   n_frames: 800
   fps: 40
+  use_drag: true #true generates comparision drag vs nodrag, false only nodrag
