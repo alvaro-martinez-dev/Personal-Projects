@@ -5,7 +5,7 @@ pendulum:
   m: 0.5
   l: 2.5
   g: 9.81
-  k_drag: 0.3
+  k_drag: 0.8 #k_drag is flagged on simulation
 
 
 simulation:
