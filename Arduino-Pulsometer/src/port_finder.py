@@ -1,13 +1,15 @@
 import serial.tools.list_ports
 
+DEFAULT_KEYWORDS = ["Arduino", "CH340", "USB-SERIAL", "USB2.0-Serial", "Dispositivo serie USB"]
 
-def find_arduino_port():
+
+def find_arduino_port(keywords=None):
     """
     Looks for the serial port with highest chance of being an Arduino device.
     This search is done looking for typical key words associated to the device.
     The name of the device or None gets printed out.
     """
-    keywords = ["Arduino", "CH340", "USB-SERIAL", "USB2.0-Serial", "Dispositivo serie USB"]
+    keywords = keywords or DEFAULT_KEYWORDS
 
     for port in serial.tools.list_ports.comports():
         if any(keyword.lower() in port.description.lower() for keyword in keywords):

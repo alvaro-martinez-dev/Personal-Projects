@@ -3,8 +3,8 @@ import time
 from .port_finder import find_arduino_port
 
 class SerialReader:
-    def __init__(self, port=None, baudrate=9600, timeout=1):
-        self.port = port or find_arduino_port()
+    def __init__(self, port=None, baudrate=9600, timeout=1, port_keywords=None):
+        self.port = port or find_arduino_port(keywords=port_keywords)
         if self.port is None:
             raise RuntimeError("No Arduino device has been detected. Specify it manually.")
         self.baudrate = baudrate
@@ -27,7 +27,7 @@ class SerialReader:
             v1_str, v2_str = line.split(",")
             return int(v1_str), int(v2_str)
         except (ValueError, IndexError):
-            return None  # línea corrupta o incompleta, se descarta
+            return None
 
     def close(self):
         if self.connection and self.connection.is_open:

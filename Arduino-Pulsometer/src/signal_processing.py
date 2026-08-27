@@ -4,7 +4,7 @@ import time
 
 class PulseProcessor:
     def __init__(self, window_size=5, baseline_window=50, min_peak_interval=0.3,
-                 rise_threshold_ratio=0.5, min_bpm=40, max_bpm=180):
+                 rise_threshold_ratio=0.5, min_bpm=40, max_bpm=180, bpm_history_size=5):
         self.window_size = window_size
         self.min_peak_interval = min_peak_interval
         self.rise_threshold_ratio = rise_threshold_ratio
@@ -14,7 +14,7 @@ class PulseProcessor:
         self.buffer = deque(maxlen=window_size)
         self.recent_values = deque(maxlen=baseline_window)
         self.last_peak_time = None
-        self.bpm_history = deque(maxlen=5)
+        self.bpm_history = deque(maxlen=bpm_history_size)
         self.last_smoothed = None
 
     def _smooth(self, value):
@@ -57,13 +57,10 @@ class PulseProcessor:
                 interval = now - self.last_peak_time
                 bpm = 60 / interval
 
-                # Rechazo de outliers: descarta BPM fisiológicamente implausibles
                 if self.min_bpm <= bpm <= self.max_bpm:
                     self.bpm_history.append(bpm)
                     self.last_peak_time = now
                     result = {"bpm": self._average_bpm(), "peak_time": now}
-                # Si el BPM es implausible, no actualizamos last_peak_time:
-                # tratamos esto como ruido y esperamos al siguiente cruce real
             else:
                 self.last_peak_time = now
 
