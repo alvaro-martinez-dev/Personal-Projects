@@ -11,8 +11,8 @@ serial:
 signal_processing:
   window_size: 5
   baseline_window: 50
-  min_peak_interval: 0.3 #0.4
-  rise_threshold_ratio: 0.65 #0.5
+  min_peak_interval: 0.3 
+  rise_threshold_ratio: 0.5
   min_bpm: 40
   max_bpm: 180
   bpm_history_size: 5
