@@ -3,7 +3,7 @@ import time
 from port_finder import find_arduino_port
 
 class SerialReader:
-    def __init__(self, port, baudrate=9600, timeout=1):
+    def __init__(self, port=None, baudrate=9600, timeout=1):
         self.port = port or find_arduino_port()
         if self.port is None:
             raise RuntimeError("No Arduino device has been detected. Specify it manually.")
@@ -13,20 +13,21 @@ class SerialReader:
 
     def connect(self):
         self.connection = serial.Serial(self.port, self.baudrate, timeout=self.timeout)
-        time.sleep(2)  # Arduino gets reset when opening the serial port. You need to wait 
+        time.sleep(2)
         return self.connection
 
-    def read_value(self):
-        """Lee una línea y la devuelve como int. Devuelve None si falla el parseo."""
+    def read_values(self):
+        """Lee una línea con dos valores separados por coma. Devuelve (v1, v2) o None si falla."""
         if self.connection is None:
             raise RuntimeError("Connection not started. Call connect() first.")
         line = self.connection.readline().decode("utf-8", errors="ignore").strip()
         if not line:
             return None
         try:
-            return int(line)
-        except ValueError:
-            return None
+            v1_str, v2_str = line.split(",")
+            return int(v1_str), int(v2_str)
+        except (ValueError, IndexError):
+            return None  # línea corrupta o incompleta, se descarta
 
     def close(self):
         if self.connection and self.connection.is_open:
@@ -34,12 +35,13 @@ class SerialReader:
 
 
 if __name__ == "__main__":
-    reader = SerialReader() 
+    reader = SerialReader()
     reader.connect()
     try:
         while True:
-            value = reader.read_value()
-            if value is not None:
-                print(value)
+            values = reader.read_values()
+            if values is not None:
+                v1, v2 = values
+                print(f"Sensor 1: {v1}  |  Sensor 2: {v2}")
     except KeyboardInterrupt:
         reader.close()
