@@ -1,6 +1,6 @@
 import serial
 import time
-from port_finder import find_arduino_port
+from .port_finder import find_arduino_port
 
 class SerialReader:
     def __init__(self, port=None, baudrate=9600, timeout=1):
