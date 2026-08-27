@@ -2,7 +2,7 @@
 // main.cpp reads sensor. Equivalent to .ino file, but with the PlatformIO IDE extension this is the way to go. 
 
 // src/main.cpp (PlatformIO)
-#include <Arduino.h>  // hay que incluirlo explícitamente, el IDE de Arduino lo hacía automático
+#include <Arduino.h>  // Needs to be included. Arduino IDE does it by defect, but platformIO doesn't
 
 const int SENSOR_PIN = A0;
 const int BAUD_RATE = 9600;
